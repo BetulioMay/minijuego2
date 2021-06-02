@@ -3,8 +3,21 @@
 #include <iostream>
 #include <string>
 
+// TODO -> TEST '<<' & '==' overrides
+
 
 using namespace std;
+
+// Funciones externas
+std::ostream & operator<<(std::ostream & stream, const Particula & p){
+
+    stream << p.ToString();
+    stream << std::endl;
+
+    return stream;
+}
+
+// Metodos de la clase
 
 // constructor sin parametros.
 // Suponemos un tamaño minimo del mundo
@@ -132,3 +145,14 @@ std::string Particula::ToString() const{
     return s;
 }
 
+bool Particula::operator==(const Particula & _p) const {
+    bool iguales = false;
+
+    float distancia = this->Distancia(_p);
+
+    if (distancia < EPSILON){
+        iguales = true;
+    }
+
+    return iguales;
+}

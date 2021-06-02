@@ -9,12 +9,13 @@ class ConjuntoParticulas {
 private:
 	Particula* set;			// Array de Particulas
 	int capacidad;			// Maxima capacidad del array
-	int size;                       // N� de particulas utilizadas
+	int size;               // Nro. de particulas utilizadas
         
-        void reservarMemoria(Particula * &set, const int tam);
-        void liberaMemoria(Particula * &set);
-        void resizeConjunto(const int n_size);
-        bool posValida(const int pos) const;
+    void reservarMemoria(Particula * &set, const int tam);
+    void liberaMemoria(Particula * &set);
+    void resizeConjunto(const int n_size);
+    bool posValida(const int pos) const;
+	void dpCopia(const ConjuntoParticulas & _cp);
 
 public:
 
@@ -25,7 +26,10 @@ public:
 	// Contructor con parametros
 	// Inicializa el array con el tama�o que le pasemos
 	// como parametro
-	ConjuntoParticulas(int capacidad);
+	ConjuntoParticulas(const int capacidad);
+
+	// Constructor de copia
+	ConjuntoParticulas(const ConjuntoParticulas & _cp);
 
 	// Destructor
 	// Libera la memoria utilizada cuando termina el programa
@@ -44,7 +48,15 @@ public:
 	// Motions de las particulas del conjunto
 	void Mover(int ancho, int alto);
 	void Rebotar(int ancho, int alto);
-	void Mostrar();
+	void Mostrar() const;
+
+	// '=' override
+	ConjuntoParticulas & operator=(const ConjuntoParticulas & _cp);
+	// '+' override
+	ConjuntoParticulas operator+(const ConjuntoParticulas & _cp) const;
 };
 
-#endif
+// '<<' override
+std::ostream & operator<<(std::ostream & stream, const ConjuntoParticulas & cp);
+
+#endif	/* CONJUNTOPARTICULAS_H */

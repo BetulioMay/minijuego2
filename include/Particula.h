@@ -5,6 +5,9 @@
 const int MAX_VEL = 6;
 const int MIN_DIM = 800;
 const float RADIO = 7.0;
+const float EPSILON = 0.01;
+
+// Funciones externas a la clase
 
 class Particula {
 private:
@@ -64,6 +67,12 @@ public:
     // transforma el contenido de la particula en un string
     std::string ToString() const;
 
+    // '==' override
+    bool operator==(const Particula & _p) const;    
+
 };
+
+// '<<' operator override
+std::ostream & operator<<(ostream & stream, const Particula & p);
 
 #endif

@@ -14,7 +14,7 @@ void ConjuntoParticulas::reservarMemoria(Particula * &set, const int tam) {
 void ConjuntoParticulas::liberaMemoria(Particula * &set) {
 	if (set != NULL) {
 		delete[] set;
-                set = NULL;
+        set = NULL;
 	}
 }
 
@@ -30,7 +30,7 @@ void ConjuntoParticulas::resizeConjunto(const int n_size) {
 	liberaMemoria(this->set);
 
 	this->set = temp;
-        this->capacidad = n_size;
+    this->capacidad = n_size;
 }
 
 bool ConjuntoParticulas::posValida(const int pos) const {
@@ -42,10 +42,26 @@ bool ConjuntoParticulas::posValida(const int pos) const {
     return valida;
 }
 
-// Funciones publicas de la clase
+// Metodo privado que hace la funcion de 'Deep copy' para el objeto en cuestion
+void ConjuntoParticulas::dpCopia(const ConjuntoParticulas & _cp){
+	this->capacidad = _cp.GetCapacidad();
+	this->size = _cp.GetUtiles();
 
+	reservarMemoria(this->set, this->capacidad);
 
-// TODO -> Edit default constructor
+	for (int i = 0; i < _cp.GetUtiles(); ++i){
+		this->AgregaParticula(_cp.ObtieneParticula(i));
+	}
+}
+
+// Funciones externas a la clase
+
+std::ostream & operator<<(std::ostream & stream, const ConjuntoParticulas & cp){
+	cp.Mostrar();
+}
+
+// Metodos publicos de la clase
+
 ConjuntoParticulas::ConjuntoParticulas() {
 
 	this->capacidad = 0;
@@ -54,12 +70,11 @@ ConjuntoParticulas::ConjuntoParticulas() {
 
 }
 
-// TODO -> Edit parameter constructor
 ConjuntoParticulas::ConjuntoParticulas(const int capacidad) {
 
 	this->capacidad = capacidad;
 	this->size = capacidad;
-        this->set = NULL;
+    this->set = NULL;
 	reservarMemoria(this->set, this->GetCapacidad());
 
 	/*for (int i = 0; i < this->GetCapacidad(); ++i) {
@@ -67,6 +82,19 @@ ConjuntoParticulas::ConjuntoParticulas(const int capacidad) {
 		this->set[i] = nueva;
 		this->size++;
 	}*/
+}
+
+// Check that is still working
+ConjuntoParticulas::ConjuntoParticulas(const ConjuntoParticulas & _cp){
+	// this->capacidad = _cp.GetCapacidad();
+	// this->size = _cp.GetUtiles();
+	this->set = NULL;
+	this->dpCopia(_cp);
+	// reservarMemoria(this->set, this->capacidad);
+
+	// for(int i = 0; i < _cp.GetUtiles(); ++i){
+	// 	this->AgregaParticula(_cp.ObtieneParticula(i));
+	// }
 }
 
 ConjuntoParticulas::~ConjuntoParticulas(){
@@ -98,14 +126,14 @@ void ConjuntoParticulas::AgregaParticula(const Particula & p) {
 void ConjuntoParticulas::BorraParticula(const int posicion) {
 
     if (posValida(posicion)){
-	for (int i = posicion; i < this->GetUtiles() - 1; ++i) {
-		this->set[i] = this->set[i + 1];
-	}
-	this->size--;
+		for (int i = posicion; i < this->GetUtiles() - 1; ++i) {
+			this->set[i] = this->set[i + 1];
+		}
+		this->size--;
 
-	if (GetCapacidad() - GetUtiles() > TAM_BLOQUE) {
-		resizeConjunto(GetCapacidad() - TAM_BLOQUE);
-	}
+		if (GetCapacidad() - GetUtiles() > TAM_BLOQUE) {
+			resizeConjunto(GetCapacidad() - TAM_BLOQUE);
+		}
     }
 }
 
@@ -133,13 +161,13 @@ void ConjuntoParticulas::Rebotar(int ancho, int alto) {
 	}
 }
 
-void ConjuntoParticulas::Mostrar() {
+void ConjuntoParticulas::Mostrar() const {
 
 	cout << "La capacidad total del conjunto -> " <<
-		this->capacidad << "\n";
+		this->GetCapacidad() << "\n";
 
 	cout << "Nro. de particulas actuales -> " <<
-		this->size << "\n";
+		this->GetUtiles() << "\n";
 
 	for (int i = 0; i < size; ++i) {
 		cout << this->set[i].ToString() << " ";
@@ -147,4 +175,24 @@ void ConjuntoParticulas::Mostrar() {
 	}
 
 	cout << "\n";
+}
+// TODO: Test both overrides
+ConjuntoParticulas & ConjuntoParticulas::operator=(const ConjuntoParticulas & _cp){
+
+	if (this != &_cp){
+		liberaMemoria(this->set);
+		dpCopia(_cp);
+	}
+
+	return *this;
+}
+
+ConjuntoParticulas ConjuntoParticulas::operator+(const ConjuntoParticulas & _cp) const {
+	ConjuntoParticulas n_cp(*this);
+
+	for (int i = 0; i < _cp.GetUtiles(); ++i){
+		n_cp.AgregaParticula(_cp.ObtieneParticula(i));
+	}
+
+	return n_cp;
 }

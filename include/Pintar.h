@@ -7,4 +7,4 @@
 void pintarParticula(const Particula& p, Color c);
 void pintarConjunto(const ConjuntoParticulas & cp, Color c);
 
-#endif
+#endif  /* _PINTAR_ */

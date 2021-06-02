@@ -4,18 +4,22 @@ all : bin/main
 
 # Binary file, uncomment the instruction and comment the game to test the files
 
-# bin/main : obj/pruebaConjunto.o lib/libparticula.a
-# 	g++ -o bin/main obj/pruebaConjunto.o -Llib -lparticula
-bin/main : obj/capturaOvnis.o lib/libparticula.a
-	g++ -o bin/main obj/capturaOvnis.o -Llib -lparticula -lraylib
+bin/main : obj/pruebaConjuntoFinal.o lib/libparticula.a
+	g++ -o bin/main obj/pruebaConjuntoFinal.o -Llib -lparticula
+	@echo 'Build Successfully!'
+# bin/main : obj/capturaOvnis.o lib/libparticula.a
+# 	g++ -o bin/main obj/capturaOvnis.o -Llib -lparticula -lraylib
+#	@echo 'Build Successfully'
 
 # Creating Library
 lib/libparticula.a : obj/ConjuntoParticulas.o obj/Particula.o obj/Pintar.o
+	@echo "Creating Library..."
 	ar rsv lib/libparticula.a obj/ConjuntoParticulas.o obj/Particula.o obj/Pintar.o
 
 # Object files
-obj/pruebaConjunto.o : src/pruebaConjunto.cpp include/Particula.h include/ConjuntoParticulas.h include/Pintar.h
-	g++ -c src/pruebaConjunto.cpp -o obj/pruebaConjunto.o -Iinclude -lraylib
+
+obj/pruebaConjuntoFinal.o : src/pruebaConjuntoFinal.cpp include/Particula.h include/ConjuntoParticulas.h include/Pintar.h
+	g++ -c src/pruebaConjuntoFinal.cpp -o obj/pruebaConjuntoFinal.o -Iinclude -lraylib
 
 obj/capturaOvnis.o : src/capturaOvnis.cpp include/Particula.h include/ConjuntoParticulas.h include/Pintar.h
 	g++ -c src/capturaOvnis.cpp -o obj/capturaOvnis.o -Iinclude -lraylib
@@ -30,8 +34,9 @@ obj/Pintar.o : src/Pintar.cpp include/Particula.h include/ConjuntoParticulas.h i
 	g++ -c src/Pintar.cpp -o obj/Pintar.o -Iinclude -lraylib
 
 # Cleaners
-clean:
+cleanObj:
+	@echo 'Cleaning...'
 	rm obj/*.o
 	rm lib/*.a
-cleanBin:
+clean: cleanObj
 	rm bin/*

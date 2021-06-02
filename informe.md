@@ -56,12 +56,3 @@ De igual manera, puede ver el minijuego en el repositorio de GitHub aquí -> htt
 - Sería interesante guardar los datos como el tiempo transcurrido como un *score* del jugador. Se podría implementar una "base de datos" muy primitiva en un fichero de texto; y mediante la escritura de ficheros que provee C++ se podría actualizar el tiempo trancurrido si este es menor al que se lee en el fichero de texto. No me resultaría difícil implementarlo y se podría mejorar y desarrollar la idea.
 
 
-
-
-
-
-
-
-
-
-
