@@ -16,6 +16,8 @@ private:
     void resizeConjunto(const int n_size);
     bool posValida(const int pos) const;
 	void dpCopia(const ConjuntoParticulas & _cp);
+	void MinMaxCoord(float & minX, float & minY,
+						float & maxX, float & maxY) const;
 
 public:
 
@@ -54,6 +56,12 @@ public:
 	ConjuntoParticulas & operator=(const ConjuntoParticulas & _cp);
 	// '+' override
 	ConjuntoParticulas operator+(const ConjuntoParticulas & _cp) const;
+	// '<' override
+	bool operator<(const ConjuntoParticulas & _cp) const;
+
+	// Metodo Area que calcula el area del rectangula mas pequeno que contiene
+	// a todas las particulas
+	float Area() const;
 };
 
 // '<<' override

@@ -1,7 +1,14 @@
 #include "ConjuntoParticulas.h"
 #include "Particula.h"
 #include <iostream>
+#include <cmath>
 using namespace std;
+
+// Funciones externas a la clase
+
+std::ostream & operator<<(std::ostream & stream, const ConjuntoParticulas & cp){
+	cp.Mostrar();
+}
 
 // Funciones privadas
 void ConjuntoParticulas::reservarMemoria(Particula * &set, const int tam) {
@@ -54,10 +61,31 @@ void ConjuntoParticulas::dpCopia(const ConjuntoParticulas & _cp){
 	}
 }
 
-// Funciones externas a la clase
+void ConjuntoParticulas::MinMaxCoord(float & minX, float & minY,
+										float & maxX, float & maxY) const 
+{
+	minX = maxX = ObtieneParticula(0).GetX();
+	minY = maxY = ObtieneParticula(0).GetY();
 
-std::ostream & operator<<(std::ostream & stream, const ConjuntoParticulas & cp){
-	cp.Mostrar();
+	float X, Y;
+	
+	for (int i = 0; i < this->GetUtiles(); ++i){
+		X = ObtieneParticula(i).GetX();
+		Y = ObtieneParticula(i).GetY();
+
+		if (minX > X){
+			minX = X;
+		}
+		if (minY > Y){
+			minY = Y;
+		}
+		if (maxX < X){
+			maxX = X;
+		}
+		if (maxY < Y){
+			maxY = Y;
+		}
+	}
 }
 
 // Metodos publicos de la clase
@@ -196,3 +224,28 @@ ConjuntoParticulas ConjuntoParticulas::operator+(const ConjuntoParticulas & _cp)
 
 	return n_cp;
 }
+
+bool ConjuntoParticulas::operator<(const ConjuntoParticulas & _cp) const {
+	bool esMenor = false;
+
+	if (this->Area() < _cp.Area()){
+		esMenor = true;
+	}
+
+	return esMenor;
+}
+
+float ConjuntoParticulas::Area() const {
+	// Obtenemos las minimas coordenadas que tiene un particula del conjunto
+	// Asimismo, con las maximas coordenadas
+	// Devolvemos el area del rectangulo definido por las coordenadas
+
+	float minX, minY;
+	float maxX, maxY;
+
+	// Get the coordinates
+	MinMaxCoord(minX, minY, maxX, maxY);
+
+	return (maxX - minX) * (maxY - minY);
+}
+
