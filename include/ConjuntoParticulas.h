@@ -22,12 +22,11 @@ private:
 public:
 
 	// Constructor sin parametros
-	// Inicializa el array con una capacidad de MIN_SIZE = 5
 	ConjuntoParticulas();
 
 	// Contructor con parametros
-	// Inicializa el array con el tama�o que le pasemos
-	// como parametro
+	// Inicializa el conjunto con la cantidad de particulas
+	// que le pasemos
 	ConjuntoParticulas(const int capacidad);
 
 	// Constructor de copia
@@ -37,7 +36,7 @@ public:
 	// Libera la memoria utilizada cuando termina el programa
 	~ConjuntoParticulas();
 
-	// Getters de la clase
+	// Getters
 	int GetCapacidad() const;
 	int GetUtiles() const;
 

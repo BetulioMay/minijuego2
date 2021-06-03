@@ -73,6 +73,6 @@ public:
 };
 
 // '<<' operator override
-std::ostream & operator<<(ostream & stream, const Particula & p);
+std::ostream & operator<<(std::ostream & stream, const Particula & p);
 
 #endif

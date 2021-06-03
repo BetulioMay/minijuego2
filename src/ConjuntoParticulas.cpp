@@ -1,5 +1,5 @@
-#include "ConjuntoParticulas.h"
 #include "Particula.h"
+#include "ConjuntoParticulas.h"
 #include <iostream>
 #include <cmath>
 using namespace std;
@@ -7,7 +7,9 @@ using namespace std;
 // Funciones externas a la clase
 
 std::ostream & operator<<(std::ostream & stream, const ConjuntoParticulas & cp){
+
 	cp.Mostrar();
+	return stream;
 }
 
 // Funciones privadas
@@ -21,7 +23,7 @@ void ConjuntoParticulas::reservarMemoria(Particula * &set, const int tam) {
 void ConjuntoParticulas::liberaMemoria(Particula * &set) {
 	if (set != NULL) {
 		delete[] set;
-        set = NULL;
+		set = NULL;
 	}
 }
 
@@ -54,13 +56,15 @@ void ConjuntoParticulas::dpCopia(const ConjuntoParticulas & _cp){
 	this->capacidad = _cp.GetCapacidad();
 	this->size = _cp.GetUtiles();
 
-	reservarMemoria(this->set, this->capacidad);
+	reservarMemoria(this->set, this->GetCapacidad());
 
-	for (int i = 0; i < _cp.GetUtiles(); ++i){
-		this->AgregaParticula(_cp.ObtieneParticula(i));
+	for (int i = _cp.GetUtiles() - 1; i >= 0; --i) {
+		this->ReemplazaParticula(i, _cp.ObtieneParticula(i));
 	}
 }
 
+// Metodo privado para calcular las coordenadas minimas y maximas del
+// conjunto en cuestion
 void ConjuntoParticulas::MinMaxCoord(float & minX, float & minY,
 										float & maxX, float & maxY) const 
 {
@@ -69,7 +73,7 @@ void ConjuntoParticulas::MinMaxCoord(float & minX, float & minY,
 
 	float X, Y;
 	
-	for (int i = 0; i < this->GetUtiles(); ++i){
+	for (int i = 1; i < this->GetUtiles(); ++i){
 		X = ObtieneParticula(i).GetX();
 		Y = ObtieneParticula(i).GetY();
 
@@ -118,7 +122,7 @@ ConjuntoParticulas::ConjuntoParticulas(const ConjuntoParticulas & _cp){
 	// this->size = _cp.GetUtiles();
 	this->set = NULL;
 	this->dpCopia(_cp);
-	// reservarMemoria(this->set, this->capacidad);
+	// reservarMemoria(this->set, this->GetCapacidad());
 
 	// for(int i = 0; i < _cp.GetUtiles(); ++i){
 	// 	this->AgregaParticula(_cp.ObtieneParticula(i));
@@ -202,7 +206,6 @@ void ConjuntoParticulas::Mostrar() const {
 		cout << "\n";
 	}
 
-	cout << "\n";
 }
 // TODO: Test both overrides
 ConjuntoParticulas & ConjuntoParticulas::operator=(const ConjuntoParticulas & _cp){

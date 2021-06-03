@@ -9,10 +9,10 @@
 using namespace std;
 
 // Funciones externas
-std::ostream & operator<<(std::ostream & stream, const Particula & p){
+ostream & operator<<(ostream & stream, const Particula & p){
 
     stream << p.ToString();
-    stream << std::endl;
+    stream << endl;
 
     return stream;
 }
