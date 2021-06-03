@@ -2,6 +2,7 @@
 #include "ConjuntoParticulas.h"
 #include <iostream>
 #include <cmath>
+#include <assert.h>
 using namespace std;
 
 // Funciones externas a la clase
@@ -104,29 +105,25 @@ ConjuntoParticulas::ConjuntoParticulas() {
 
 ConjuntoParticulas::ConjuntoParticulas(const int capacidad) {
 
+	assert(capacidad > 0);		// Comprobamos que capacidad es un tamanio valido
+
 	this->capacidad = capacidad;
-	this->size = capacidad;
+	this->size = this->GetCapacidad();
     this->set = NULL;
 	reservarMemoria(this->set, this->GetCapacidad());
 
-	/*for (int i = 0; i < this->GetCapacidad(); ++i) {
-		Particula nueva;
-		this->set[i] = nueva;
-		this->size++;
-	}*/
 }
 
-// Check that is still working
 ConjuntoParticulas::ConjuntoParticulas(const ConjuntoParticulas & _cp){
 	// this->capacidad = _cp.GetCapacidad();
 	// this->size = _cp.GetUtiles();
-	this->set = NULL;
-	this->dpCopia(_cp);
 	// reservarMemoria(this->set, this->GetCapacidad());
 
 	// for(int i = 0; i < _cp.GetUtiles(); ++i){
 	// 	this->AgregaParticula(_cp.ObtieneParticula(i));
 	// }
+	this->set = NULL;
+	this->dpCopia(_cp);
 }
 
 ConjuntoParticulas::~ConjuntoParticulas(){
@@ -157,26 +154,24 @@ void ConjuntoParticulas::AgregaParticula(const Particula & p) {
 
 void ConjuntoParticulas::BorraParticula(const int posicion) {
 
-    if (posValida(posicion)){
-		for (int i = posicion; i < this->GetUtiles() - 1; ++i) {
-			this->set[i] = this->set[i + 1];
-		}
-		this->size--;
+	assert(posValida(posicion));
+	for (int i = posicion; i < this->GetUtiles() - 1; ++i) {
+		this->set[i] = this->set[i + 1];
+	}
+	this->size--;
 
-		if (GetCapacidad() - GetUtiles() > TAM_BLOQUE) {
-			resizeConjunto(GetCapacidad() - TAM_BLOQUE);
-		}
-    }
+	if (GetCapacidad() - GetUtiles() > TAM_BLOQUE) {
+		resizeConjunto(GetCapacidad() - TAM_BLOQUE);
+	}
 }
 
 Particula ConjuntoParticulas::ObtieneParticula(const int posicion) const {
-    if (posValida(posicion)){
-		return this->set[posicion];
-    }
+	assert(posValida(posicion));
+	return this->set[posicion];
 }
 
 void ConjuntoParticulas::ReemplazaParticula(const int posicion, const Particula & p) {
-	if (posValida(posicion)) {
+	if (posValida(posicion)){
 		this->set[posicion] = p;
 	}
 }
@@ -242,13 +237,17 @@ float ConjuntoParticulas::Area() const {
 	// Obtenemos las minimas coordenadas que tiene un particula del conjunto
 	// Asimismo, con las maximas coordenadas
 	// Devolvemos el area del rectangulo definido por las coordenadas
-
 	float minX, minY;
 	float maxX, maxY;
-
-	// Get the coordinates
-	MinMaxCoord(minX, minY, maxX, maxY);
-
-	return (maxX - minX) * (maxY - minY);
+	float area;
+	if (this->GetUtiles() < 1){
+		area = 0;
+	}
+	else{
+		// Get the coordinates
+		MinMaxCoord(minX, minY, maxX, maxY);
+		area = (maxX - minX) * (maxY - minY);
+	}
+	return area;
 }
 

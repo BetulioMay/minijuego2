@@ -3,9 +3,6 @@
 #include <iostream>
 #include <string>
 
-// TODO -> TEST '<<' & '==' overrides
-
-
 using namespace std;
 
 // Funciones externas
