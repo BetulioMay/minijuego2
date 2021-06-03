@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <assert.h>
+#include <fstream>
 using namespace std;
 
 // Funciones externas a la clase
@@ -114,7 +115,7 @@ ConjuntoParticulas::ConjuntoParticulas(const int capacidad) {
 
 }
 
-ConjuntoParticulas::ConjuntoParticulas(const ConjuntoParticulas & _cp){
+ConjuntoParticulas::ConjuntoParticulas(const ConjuntoParticulas & _cp) {
 	// this->capacidad = _cp.GetCapacidad();
 	// this->size = _cp.GetUtiles();
 	// reservarMemoria(this->set, this->GetCapacidad());
@@ -126,7 +127,39 @@ ConjuntoParticulas::ConjuntoParticulas(const ConjuntoParticulas & _cp){
 	this->dpCopia(_cp);
 }
 
-ConjuntoParticulas::~ConjuntoParticulas(){
+ConjuntoParticulas::ConjuntoParticulas(const char * nombre) {
+	// Abrimos el fichero
+	fstream f;
+	f.open(nombre, ios::in);
+
+	if (!f) {
+		// Comprobamos que no hubo error al abrirlo
+		cerr << "Error: File not opened." << endl;
+		exit(1);
+	}
+
+	// Inicializamos el conjunto
+	this->capacidad = 0;
+	this->size = 0;
+	this->set = NULL;
+
+	reservarMemoria(this->set, this->GetCapacidad());
+
+	// Leemos del fichero los datos y agregamos al conjunto
+	int capacidad;
+	float x, y, dx, dy, r;
+
+	f >> capacidad;
+	for (int i = 0; i < capacidad; ++i) {
+		Particula p;
+		f >> p;
+		this->AgregaParticula(p);
+	}
+
+	f.close();
+}
+
+ConjuntoParticulas::~ConjuntoParticulas() {
 	liberaMemoria(this->set);
 }
 
@@ -203,7 +236,7 @@ void ConjuntoParticulas::Mostrar() const {
 
 }
 // TODO: Test both overrides
-ConjuntoParticulas & ConjuntoParticulas::operator=(const ConjuntoParticulas & _cp){
+ConjuntoParticulas & ConjuntoParticulas::operator=(const ConjuntoParticulas & _cp) {
 
 	if (this != &_cp){
 		liberaMemoria(this->set);

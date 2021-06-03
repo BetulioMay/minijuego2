@@ -32,6 +32,9 @@ public:
 	// Constructor de copia
 	ConjuntoParticulas(const ConjuntoParticulas & _cp);
 
+	// Constructor con paso de fichero
+	ConjuntoParticulas(const char * nombre);
+
 	// Destructor
 	// Libera la memoria utilizada cuando termina el programa
 	~ConjuntoParticulas();

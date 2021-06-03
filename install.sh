@@ -1,3 +1,4 @@
+#!bin/bash
 
 function basic_install(){
     apt install -y make gcc g++ build-essential git
@@ -13,12 +14,12 @@ function raylib_install(){
     make install RAYLIB_LIBTYPE=SHARED
 }
 
-echo "Installing dependencies"
-sleep 1000
+echo "Installing dependencies..."
+sleep 1
 basic_install()
 raylib_dependencies()
-sleep 1000
-echo "Installing raylib"
+sleep 1
+echo "Installing raylib..."
 raylib_install()
 make -f Makefile
 echo "Succesfully Installed"
