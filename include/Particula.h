@@ -38,6 +38,7 @@ public:
     void SetXY(float, float);
     void SetDX(float);
     void SetDY(float);
+    void SetRadio(float);
 
     // calcula distancia euclidea entre dos partículas
     float Distancia(const Particula & otra) const; 
@@ -74,5 +75,7 @@ public:
 
 // '<<' operator override
 std::ostream & operator<<(std::ostream & stream, const Particula & p);
+// '>>' operator override
+std::istream & operator>>(std::istream & stream, Particula & p);
 
 #endif

@@ -13,6 +13,27 @@ ostream & operator<<(ostream & stream, const Particula & p){
 
     return stream;
 }
+istream & operator>>(istream & stream, Particula & p){
+    float x, y, dx, dy, radio;
+    
+    stream >> x >> y >> dx >> dy;
+    // x e y pueden no tener control de flujo ya que
+    // la clase tiene su control de bordes implementada
+    // (AjustarPosicion), para el momento en el que se mueva
+    // esta particula estara dentro de los "bounds" de la pantalla
+
+    do {
+        stream >> radio;
+    } while (radio <= 0);
+    
+
+    p.SetXY(x, y);
+    p.SetDX(dx);
+    p.SetDY(dy);
+    p.SetRadio(radio);
+
+    return stream;
+}
 
 // Metodos de la clase
 
@@ -73,6 +94,10 @@ void Particula::SetDX(float _dx) {
 
 void Particula::SetDY(float _dy) {
     dy = _dy;
+}
+
+void Particula::SetRadio(float _radio) {
+    radio = _radio;
 }
 
 void Particula::AjustarPosicion(int ancho, int alto) {
