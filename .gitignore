@@ -2,7 +2,6 @@
 *.d
 
 # Object files
-obj/*.o
 *.o
 *.ko
 *.obj
@@ -18,7 +17,6 @@ obj/*.o
 *.pch
 
 # Libraries
-lib/*.a
 *.lib
 *.a
 *.la
@@ -31,7 +29,6 @@ lib/*.a
 *.dylib
 
 # Executables
-bin/*
 *.exe
 *.out
 *.app
@@ -55,4 +52,4 @@ Mkfile.old
 dkms.conf
 
 # Vscode folder
-.vscode
+*.vscode/
