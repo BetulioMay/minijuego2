@@ -1,15 +1,17 @@
+# make build
+# Usage: sudo bash install.sh (Recommended) OR sudo make
+
 
 all : bin/main
-
 
 # Binary file, uncomment the instruction and comment the game to test the files
 
 bin/main : obj/pruebaConjuntoFinal.o lib/libparticula.a
 	g++ -o bin/main obj/pruebaConjuntoFinal.o -Llib -lparticula
 	@echo 'Build Successfully!'
-# bin/main : obj/capturaOvnis.o lib/libparticula.a
-# 	g++ -o bin/main obj/capturaOvnis.o -Llib -lparticula -lraylib
-#	@echo 'Build Successfully'
+# bin/main : obj/ovnis.o lib/libparticula.a
+# 	g++ -o bin/main obj/ovnis.o -Llib -lparticula -lraylib
+# 	@echo 'Build Successfully'
 
 # Creating Library
 lib/libparticula.a : obj/ConjuntoParticulas.o obj/Particula.o obj/Pintar.o
@@ -18,11 +20,11 @@ lib/libparticula.a : obj/ConjuntoParticulas.o obj/Particula.o obj/Pintar.o
 
 # Object files
 
-obj/pruebaConjuntoFinal.o : src/pruebaConjuntoFinal.cpp include/Particula.h include/ConjuntoParticulas.h include/Pintar.h
+obj/pruebaConjuntoFinal.o : src/pruebaConjuntoFinal.cpp include/Particula.h include/ConjuntoParticulas.h
 	g++ -c src/pruebaConjuntoFinal.cpp -o obj/pruebaConjuntoFinal.o -Iinclude -lraylib
 
-obj/capturaOvnis.o : src/capturaOvnis.cpp include/Particula.h include/ConjuntoParticulas.h include/Pintar.h
-	g++ -c src/capturaOvnis.cpp -o obj/capturaOvnis.o -Iinclude -lraylib
+obj/ovnis.o : src/ovnis.cpp include/Particula.h include/ConjuntoParticulas.h include/Pintar.h
+	g++ -c src/ovnis.cpp -o obj/ovnis.o -Iinclude -lraylib
 
 obj/ConjuntoParticulas.o : src/ConjuntoParticulas.cpp include/Particula.h include/ConjuntoParticulas.h
 	g++ -c src/ConjuntoParticulas.cpp -o obj/ConjuntoParticulas.o -Iinclude -lraylib

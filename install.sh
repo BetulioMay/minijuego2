@@ -1,10 +1,11 @@
 #!bin/bash
+# Usage: sudo bash install.sh
 
 basic_install(){
-    apt install -y make gcc g++ build-essential git
+    apt-get install -y make gcc g++ build-essential git
 }
 raylib_dependencies(){
-    apt install -y libasound2-dev mesa-common-dev mesa-utils libx11-dev libxrandr-dev libxi-dev xorg-dev libgl1-mesa-dev libglu1-mesa-dev
+    apt-get install -y libasound2-dev mesa-common-dev mesa-utils libx11-dev libxrandr-dev libxi-dev xorg-dev libgl1-mesa-dev libglu1-mesa-dev
 }
 raylib_install(){
     git clone https://github.com/raysan5/raylib.git raylib
