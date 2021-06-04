@@ -11,8 +11,8 @@ RUN mkdir /app
 COPY . /app
 WORKDIR /app
 
-# This command compiles your app using make, adjust for your source code
-RUN bash install.sh
+RUN apt-get update && apt-get -y install curl apt-utils
 
-# This command runs your application, comment out this line to compile only
-CMD ["./bin/main"]
+# This command compiles your app using make, adjust for your source code
+
+CMD ["bash install.sh"]
