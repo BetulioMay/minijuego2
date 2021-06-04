@@ -23,14 +23,13 @@ istream & operator>>(istream & stream, Particula & p){
     // esta particula estara dentro de los "bounds" de la pantalla
 
     do {
+        // Sin embargo tenemos que cuidar que el radio no tenga valor negativo
         stream >> radio;
     } while (radio <= 0);
     
+    Particula _p (x, y, dx, dy, radio);
 
-    p.SetXY(x, y);
-    p.SetDX(dx);
-    p.SetDY(dy);
-    p.SetRadio(radio);
+    p = _p;
 
     return stream;
 }

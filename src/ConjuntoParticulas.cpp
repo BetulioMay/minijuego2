@@ -68,7 +68,7 @@ void ConjuntoParticulas::dpCopia(const ConjuntoParticulas & _cp){
 // Metodo privado para calcular las coordenadas minimas y maximas del
 // conjunto en cuestion
 void ConjuntoParticulas::MinMaxCoord(float & minX, float & minY,
-										float & maxX, float & maxY) const 
+									float & maxX, float & maxY) const 
 {
 	minX = maxX = ObtieneParticula(0).GetX();
 	minY = maxY = ObtieneParticula(0).GetY();

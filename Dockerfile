@@ -12,7 +12,7 @@ COPY . /app
 WORKDIR /app
 
 # This command compiles your app using make, adjust for your source code
-RUN install.sh
+RUN bash install.sh
 
 # This command runs your application, comment out this line to compile only
 CMD ["./bin/main"]
