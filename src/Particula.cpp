@@ -19,13 +19,13 @@ istream & operator>>(istream & stream, Particula & p){
     stream >> x >> y >> dx >> dy;
     // x e y pueden no tener control de flujo ya que
     // la clase tiene su control de bordes implementada
-    // (AjustarPosicion), para el momento en el que se mueva
+    // (AjustarPosicion), para el momento en el que se muevan
     // esta particula estara dentro de los "bounds" de la pantalla
 
     do {
         // Sin embargo tenemos que cuidar que el radio no tenga valor negativo
         stream >> radio;
-    } while (radio <= 0);
+    } while (radio < 0);
     
     Particula _p (x, y, dx, dy, radio);
 
@@ -93,10 +93,6 @@ void Particula::SetDX(float _dx) {
 
 void Particula::SetDY(float _dy) {
     dy = _dy;
-}
-
-void Particula::SetRadio(float _radio) {
-    radio = _radio;
 }
 
 void Particula::AjustarPosicion(int ancho, int alto) {

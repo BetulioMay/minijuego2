@@ -6,12 +6,12 @@ all : bin/main
 
 # Binary file, uncomment the instruction and comment the game to test the files
 
-bin/main : obj/pruebaConjuntoFinal.o lib/libparticula.a
-	g++ -o bin/main obj/pruebaConjuntoFinal.o -Llib -lparticula
-	@echo 'Build Successfully!'
-# bin/main : obj/ovnis.o lib/libparticula.a
-# 	g++ -o bin/main obj/ovnis.o -Llib -lparticula -lraylib
-# 	@echo 'Build Successfully'
+# bin/main : obj/pruebaConjuntoFinal.o lib/libparticula.a
+# 	g++ -o bin/main obj/pruebaConjuntoFinal.o -Llib -lparticula
+# 	@echo 'Build Successfully!'
+bin/main : obj/ovnis.o lib/libparticula.a
+	g++ -o bin/main obj/ovnis.o -Llib -lparticula -lraylib
+	@echo 'Build Successfully'
 
 # Creating Library
 lib/libparticula.a : obj/ConjuntoParticulas.o obj/Particula.o obj/Pintar.o

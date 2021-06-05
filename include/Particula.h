@@ -4,7 +4,7 @@
 #include <iostream>
 const int MAX_VEL = 6;
 const int MIN_DIM = 800;
-const float RADIO = 7.0;
+const float RADIO = 10.0;
 const float EPSILON = 0.01;
 
 // Funciones externas a la clase
@@ -38,7 +38,6 @@ public:
     void SetXY(float, float);
     void SetDX(float);
     void SetDY(float);
-    void SetRadio(float);
 
     // calcula distancia euclidea entre dos partículas
     float Distancia(const Particula & otra) const; 

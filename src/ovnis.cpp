@@ -57,7 +57,7 @@ int main(int argc, char* argv[]){
             }
 
             if (IsKeyPressed(KEY_SPACE)) {
-                proyectiles.AgregaParticula(Particula(base.GetX(), base.GetY(), 0.0f, -4.0f, RADIO / 2.0f));
+                proyectiles.AgregaParticula(Particula(base.GetX(), base.GetY(), 0.0f, -5.0f, RADIO / 2.0f));
             }
 
             // Check for possible collisions
@@ -98,7 +98,7 @@ int main(int argc, char* argv[]){
         // Draw
         
         BeginDrawing();
-        ClearBackground(RAYWHITE);
+        ClearBackground(BLACK);
         
         if (gameOver) {
             if (win) {
@@ -114,12 +114,12 @@ int main(int argc, char* argv[]){
             s = "Particulas -> " + to_string(ovnis.GetUtiles()) + "\tCap -> " +
                 to_string(ovnis.GetCapacidad()) + "\tTiempo -> " + to_string(time);
             
-            pintarParticula(base, BLACK);
-            pintarConjunto(ovnis, BLUE);
+            pintarParticula(base, BLUE);
+            pintarConjunto(ovnis, GREEN);
             pintarConjunto(proyectiles, RED);
 
-            DrawText("Pulse ESC to exit", 10, 10, 20, BLACK);
-            DrawText(s.c_str(), 10, 30, 20, BLACK);
+            DrawText("Pulse ESC to exit", 10, 10, 20, YELLOW);
+            DrawText(s.c_str(), 10, 30, 20, YELLOW);
         }
 
         EndDrawing();

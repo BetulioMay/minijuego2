@@ -23,3 +23,15 @@ Dicho lo anterior, no hubo ningún otro problema en la extensión de las clases,
 
 ### Minijuego. Ovnis 2.0
 
+Para el minijuego, con respecto a la version anterior, este tendria la caracteristica de que la base dispara proyectiles presionando la barra espaciadora, estos proyectiles son un nuevo objeto *ConjuntoParticulas*, en un principio se llama al constructor por defecto, teniendo un conjunto vacio, y cuando presionamos la barra espaciadora se agrega al conjunto. En este caso, si hubieron problemas de *Segmentation fault*, es aqui cuando decidi usar las aserciones dichas en la seccion anterior lo cual ayudo mucho; lo que pasaba era que estaba accediendo a una posicion no valida, para arreglar esto tenia que controlar que en los bucles que comprobaban que un proyectil colisionaba con un ovni empezara a iterar desde el ultimo elemento y si colisionaba salir del bucle, de manera que no siga comprobando en posiciones que evidentemente cambiarian.
+
+Luego para controlar que los proyectiles se borren del conjunto cuando toquen el extremo superior de la pantalla, lo primero que se me ocurrio fue implementar un bucle, de manera que compruebe si alguna particula se salga de la pantalla. Esto podria hacerse mas eficiente, ya que no necesitamos recorrer todo el conjunto de proyectiles para realizar esta tarea; debido a que en cada tick solo podemos disparar un proyectil, es logico pensar que siempre habra uno por encima de otro y que el primero en ser disparado sera el primero en salirse, por lo tanto, solo tenemos que comprobar si el primero del conjunto se ha salido ahorrandonos tener que comprobar todos y cada uno de los proyectiles.
+
+Tambien he agregado nuevas variables al main: *bool gameOver, bool win, bool ovni_killed*; ya que podemos nosotros como jugadores perder en esta version es necesario tener una variable de tipo booleano, este es win, asi si win es 'true' hemos ganado nos saldra un mensaje de que hemos ganado, y en caso contrario, un mensaje de que hemos perdido. La variable *gameOver* controla si seguimos jugando si es falso y si es 'true' dejara de realizar la logica del juego y refleja la pantalla de finalizacion del juego. Y *ovni_killed* es la flag para el bucle de comprobacion de colision de los proyectiles con los ovnis.
+
+Por ultimo, he cambiado un poco los colores del juego, y he implementado un control de entrada de parametros al principio del main que comprueba que los parametros del pasados por linea de comandos sean correctos, de lo contrario aborta la ejecucion del programa.
+
+Tanto el minijuego como los tests tuvieron un control de versiones usando git, tambien he escrito un *script* (no esta en la entrega) *install.sh* que es el encargado de descargar todas la dependencias y librerias necesarias para correr el juego y finalmente ejecutar el Makefile con ```make```, esto en caso de distribuirlo, que el usuario pueda "instalar" el juego.
+
+
+
