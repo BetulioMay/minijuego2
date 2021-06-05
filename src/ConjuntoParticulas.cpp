@@ -150,7 +150,7 @@ ConjuntoParticulas::ConjuntoParticulas(const char * nombre) {
 	float x, y, dx, dy, r;
 
 	f >> capacidad;
-	for (int i = 0; i < capacidad; ++i) {
+	for (int i = 0; i < capacidad && !f.eof(); ++i) {
 		Particula p;
 		f >> p;
 		this->AgregaParticula(p);
@@ -235,7 +235,6 @@ void ConjuntoParticulas::Mostrar() const {
 	}
 
 }
-// TODO: Test both overrides
 ConjuntoParticulas & ConjuntoParticulas::operator=(const ConjuntoParticulas & _cp) {
 
 	if (this != &_cp){
