@@ -41,7 +41,7 @@ void ConjuntoParticulas::resizeConjunto(const int n_size) {
 	liberaMemoria(this->set);
 
 	this->set = temp;
-    this->capacidad = n_size;
+	this->capacidad = n_size;
 }
 
 bool ConjuntoParticulas::posValida(const int pos) const {
